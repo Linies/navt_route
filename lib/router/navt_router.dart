@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'navt_page.dart';
 
 /// Navigator2.0 Router
-/// Created by liniec on 4/19/21.
+/// Created by linzhihan on 4/19/21.
 class NavtRouterDelegate extends RouterDelegate<String>
     with PopNavigatorRouterDelegateMixin<String>, ChangeNotifier {
   final _stack = <Widget>[];
@@ -57,8 +57,8 @@ class NavtRouterDelegate extends RouterDelegate<String>
 
   void dismissDialog() {
     assert(stack.isNotEmpty, "Routes list is empty");
-    var index = stack
-        .lastIndexWhere((route) => route.toStringShort() == 'GenerateDialogDelegate');
+    var index = stack.lastIndexWhere(
+            (route) => route.toStringShort() == 'GenerateDialogDelegate');
     if (index != -1) {
       _stack.removeAt(index);
       notifyListeners();
@@ -98,7 +98,6 @@ class NavtRouterDelegate extends RouterDelegate<String>
         for (final widget in _stack)
           NavtPage(
             widget,
-            key: widget.key as LocalKey,
             name: widget.key.toString(),
           ),
       ],
