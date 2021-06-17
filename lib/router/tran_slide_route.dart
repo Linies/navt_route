@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 
 /// [TransitionSlideRoute]页面路由以及过渡动画实现.
 /// [DialogSlideRoute]弹窗路由以及过渡动画实现.
-/// Created by linzhihan on 4/19/21.
 enum DefaultTransition {
   FadeTransition,
   ScaleTransition,
