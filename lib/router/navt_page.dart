@@ -12,11 +12,13 @@ class NavtPage extends Page {
       this.child, {
         LocalKey? key,
         String? name,
+        Object? arguments,
         this.transitionsBuilder,
         this.defaultTransition = DefaultTransition.SlideTransition,
       }) : super(
     key: key,
     name: name,
+    arguments: arguments,
   );
 
   final Widget child;
@@ -54,7 +56,7 @@ class NavtPage extends Page {
 class GenerateDialogDelegate extends StatelessWidget {
   final Widget child;
 
-  GenerateDialogDelegate(this.child);
+  GenerateDialogDelegate(this.child, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

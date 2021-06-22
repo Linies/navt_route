@@ -51,7 +51,10 @@ class NavtRouterDelegate extends RouterDelegate<String>
   }
 
   void showDialog(Widget child) {
-    _stack.add(GenerateDialogDelegate(child));
+    _stack.add(GenerateDialogDelegate(
+      child,
+      key: ValueKey(null != child.key ? child.key : child.runtimeType),
+    ));
     notifyListeners();
   }
 
@@ -67,7 +70,10 @@ class NavtRouterDelegate extends RouterDelegate<String>
 
   bool _onPopPage(Route<dynamic> route, dynamic result) {
     if (_stack.isNotEmpty) {
-      if (_stack.last.key.toString() == route.settings.name) {
+      var typeName = null != _stack.last.key
+          ? _stack.last.key.toString()
+          : _stack.last.runtimeType.toString();
+      if (typeName == route.settings.name) {
         _stack.remove(route.settings.name);
         notifyListeners();
       }
@@ -94,13 +100,15 @@ class NavtRouterDelegate extends RouterDelegate<String>
     return Navigator(
       key: navigatorKey,
       onPopPage: _onPopPage,
-      pages: [
-        for (final widget in _stack)
-          NavtPage(
-            widget,
-            name: widget.key.toString(),
-          ),
-      ],
+      pages: _stack
+          .map((widget) => NavtPage(
+                widget,
+                name: null != widget.key
+                    ? widget.key.toString()
+                    : widget.runtimeType.toString(),
+                key: ValueKey(widget.key ?? widget.runtimeType),
+              ))
+          .toList(),
     );
   }
 }
