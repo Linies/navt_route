@@ -41,11 +41,16 @@ class NavtRouterDelegate extends RouterDelegate<String>
     notifyListeners();
   }
 
-  void popUtil(String pageName) {
-    var index =
-    stack.lastIndexWhere((route) => route.toStringShort() == pageName);
+  /// [pageKey]: key or class type
+  void popUtil<T>(String pageType, [ValueKey<T>? pageKey]) {
+    var index = _stack.lastIndexWhere((widget) =>
+    null != pageKey && null != widget.key
+        ? widget.key == pageKey
+        : widget.runtimeType.toString() == pageType);
     if (index != -1) {
-      stack.removeAt(index);
+      for (var i = _stack.length - 1; i > index; i--) {
+        _stack.removeAt(i);
+      }
       notifyListeners();
     }
   }
@@ -106,7 +111,7 @@ class NavtRouterDelegate extends RouterDelegate<String>
                 name: null != widget.key
                     ? widget.key.toString()
                     : widget.runtimeType.toString(),
-                key: ValueKey(widget.key ?? widget.runtimeType),
+                // key:  ValueKey(widget.key),
               ))
           .toList(),
     );
