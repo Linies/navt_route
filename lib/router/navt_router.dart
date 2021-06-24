@@ -42,7 +42,7 @@ class NavtRouterDelegate extends RouterDelegate<String>
   }
 
   /// [pageKey]: key or class type
-  void popUtil<T>(String pageType, [ValueKey<T>? pageKey]) {
+  void popUtil<K extends Key>(String pageType, [K? pageKey]) {
     var index = _stack.lastIndexWhere((widget) =>
     null != pageKey && null != widget.key
         ? widget.key == pageKey
@@ -55,18 +55,34 @@ class NavtRouterDelegate extends RouterDelegate<String>
     }
   }
 
-  void showDialog(Widget child) {
+  void showDialog(
+    Widget child, {
+    bool crossPage = false,
+    bool clickClose = false,
+    bool allowClick = true,
+    Color backgroundColor = const Color(0x80000000),
+    bool ignoreContentClick = false,
+  }) {
+    var key = null != child.key ? child.key : ValueKey(child.runtimeType);
     _stack.add(GenerateDialogDelegate(
       child,
-      key: ValueKey(null != child.key ? child.key : child.runtimeType),
+      key: key,
+      builder: DialogBuilder(
+        clickClose: clickClose,
+        crossPage: crossPage,
+        allowClick: allowClick,
+        backgroundColor: backgroundColor,
+        dismissFunc: () => dismissDialog(key),
+      ),
     ));
     notifyListeners();
   }
 
-  void dismissDialog() {
+  void dismissDialog([Key? key]) {
     assert(stack.isNotEmpty, "Routes list is empty");
-    var index = stack.lastIndexWhere(
-            (route) => route.toStringShort() == 'GenerateDialogDelegate');
+    var index = stack.lastIndexWhere((route) => null != key
+        ? route.key == key
+        : route.toStringShort() == 'GenerateDialogDelegate');
     if (index != -1) {
       _stack.removeAt(index);
       notifyListeners();
