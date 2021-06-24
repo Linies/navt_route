@@ -2,11 +2,8 @@ import 'package:flutter/widgets.dart';
 
 import 'tran_slide_route.dart';
 
-///Toast的关闭函数,调用将会提前关闭对应的Toast
 typedef DismissFunc = void Function();
 
-/// Navigator2.0 Page.
-/// Created by linzhihan on 4/19/21.
 class NavtPage extends Page {
   final RouteTransitionsBuilder? transitionsBuilder;
   final DefaultTransition? defaultTransition;
@@ -73,7 +70,6 @@ class DialogBuilder {
 
   Color backgroundColor;
 
-  ///[ignoreContentClick] 是否忽视ToastContext区域
   bool ignoreContentClick;
 
   DismissFunc? dismissFunc;

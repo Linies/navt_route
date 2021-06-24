@@ -3,8 +3,6 @@ import 'package:flutter/widgets.dart';
 
 import 'navt_page.dart';
 
-/// Navigator2.0 Router
-/// Created by linzhihan on 4/19/21.
 class NavtRouterDelegate extends RouterDelegate<String>
     with PopNavigatorRouterDelegateMixin<String>, ChangeNotifier {
   final _stack = <Widget>[];
