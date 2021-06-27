@@ -70,6 +70,7 @@ class NavtRouterDelegate extends RouterDelegate<String>
         crossPage: crossPage,
         allowClick: allowClick,
         backgroundColor: backgroundColor,
+        ignoreContentClick: ignoreContentClick,
         dismissFunc: () => dismissDialog(key),
       ),
     ));
