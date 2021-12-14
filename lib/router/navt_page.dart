@@ -9,17 +9,17 @@ class NavtPage extends Page {
   final DefaultTransition? defaultTransition;
 
   const NavtPage(
-      this.child, {
-        LocalKey? key,
-        String? name,
-        Object? arguments,
-        this.transitionsBuilder,
-        this.defaultTransition = DefaultTransition.SlideTransition,
-      }) : super(
-    key: key,
-    name: name,
-    arguments: arguments,
-  );
+    this.child, {
+    LocalKey? key,
+    String? name,
+    Object? arguments,
+    this.transitionsBuilder,
+    this.defaultTransition = DefaultTransition.SlideTransition,
+  }) : super(
+          key: key,
+          name: name,
+          arguments: arguments,
+        );
 
   final Widget child;
 
@@ -45,15 +45,15 @@ class NavtPage extends Page {
     } else {
       return null != transitionsBuilder
           ? TransitionSlideRoute(
-        child,
-        transitionsBuilder!,
-        settings: this,
-      )
+              child,
+              transitionsBuilder!,
+              settings: this,
+            )
           : TransitionSlideRoute.transition(
-        child,
-        settings: this,
-        transition: defaultTransition,
-      );
+              child,
+              settings: this,
+              transition: defaultTransition,
+            );
     }
   }
 }
@@ -90,15 +90,19 @@ class GenerateDialogDelegate extends StatelessWidget {
 
   final DialogBuilder? builder;
 
+  final AlignmentGeometry alignmentGeometry;
+
   GenerateDialogDelegate(
     this.child, {
     Key? key,
     this.builder,
+    this.alignmentGeometry = Alignment.center,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: alignmentGeometry,
       children: [
         Listener(
           onPointerDown: (builder?.clickClose ?? false)

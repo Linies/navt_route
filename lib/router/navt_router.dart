@@ -42,9 +42,9 @@ class NavtRouterDelegate extends RouterDelegate<String>
   /// [pageKey]: key or class type
   void popUtil<K extends Key>(String pageType, [K? pageKey]) {
     var index = _stack.lastIndexWhere((widget) =>
-    null != pageKey && null != widget.key
-        ? widget.key == pageKey
-        : widget.runtimeType.toString() == pageType);
+        null != pageKey && null != widget.key
+            ? widget.key == pageKey
+            : widget.runtimeType.toString() == pageType);
     if (index != -1) {
       for (var i = _stack.length - 1; i > index; i--) {
         _stack.removeAt(i);
@@ -60,11 +60,13 @@ class NavtRouterDelegate extends RouterDelegate<String>
     bool allowClick = true,
     Color backgroundColor = const Color(0x80000000),
     bool ignoreContentClick = false,
+    AlignmentGeometry alignmentGeometry = Alignment.center,
   }) {
     var key = null != child.key ? child.key : ValueKey(child.runtimeType);
     _stack.add(GenerateDialogDelegate(
       child,
       key: key,
+      alignmentGeometry: alignmentGeometry,
       builder: DialogBuilder(
         clickClose: clickClose,
         crossPage: crossPage,
